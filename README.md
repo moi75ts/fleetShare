@@ -2,7 +2,7 @@
 
 ## Description
 
-This mod enables seamless fleet sharing between players in *Starsector*. Export your fleet into a compact, shareable string, allowing another player to spawn it in their game. The shared fleet retains all details, including:
+This mod enables seamless fleet sharing between players in *Starsector*. Export your fleet into a shareable string, allowing another player to spawn it in their game. The shared fleet retains all details, including:
 
 - Fleet composition
 - Weapons
