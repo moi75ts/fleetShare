@@ -1,11 +1,15 @@
 {
-  "id": "matlabmaster_multiplayer",
-  "name": "The multiplayer mod",
+  "id": "matlabmaster_fleetshare",
+  "name": "The fleet sharing mod",
   "author": "MatlabMaster",
-  "utility": false,
+  "utility": true,
   "version": { "major": '0', "minor": '3', "patch": '6' },
-  "description": "MatlabMaster's multiplayer mod",
+  "description": "MatlabMaster's Fleet sharing mod",
   "gameVersion": "0.98a-RC8",
-  "jars": [ "jars/multiplayer.jar" ],
-  "modPlugin": "matlabmaster.multiplayer.MultiplayerModPlugin"
+  "jars": [ "jars/fleetShare.jar" ],
+  "modPlugin": "matlabmaster.fleetshare.fleetshareModPlugin",
+  "dependencies": [
+    {"id": "lw_lazylib", "name": "LazyLib", "version": "3.0.0"},
+    {"id": "lw_console", "name": "Console Commands", "version": "2025.03.30"}
+  ]
 }
