@@ -1,3 +1,5 @@
 command,class,tags,syntax,help
 exportFleet,matlabmaster.fleetshare.exportFleet,"exportFleet,fleetshare",exportFleet,"Convert your fleet to a sharable string and copies it to your clipboard"
 importFleet,matlabmaster.fleetshare.importFleet,"importFleet,fleetshare",importFleet <text>,"Spawn a new fleet using a shared fleet string"
+replaceMyFleet,matlabmaster.fleetshare.replaceMyFleet,"replaceMyFleet,fleetshare",replaceMyFleet <text>,"Replace your fleet with the fleet from a string"
+addToMyFleet,matlabmaster.fleetshare.addToMyFleet,"addToMyFleet,fleetshare",addToMyFleet <text>,"Add the shared fleet to your fleet"

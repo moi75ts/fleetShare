@@ -1,7 +1,6 @@
 package matlabmaster.fleetshare;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import matlabmaster.fleetshare.utils.FleetHelper;
 import org.json.JSONObject;
 import org.lazywizard.console.BaseCommand;
@@ -9,16 +8,14 @@ import org.lazywizard.console.Console;
 
 import java.util.Base64;
 
-public class importFleet implements BaseCommand {
+public class addToMyFleet implements BaseCommand {
     @Override
     public CommandResult runCommand(String args, CommandContext context){
         try {
-            Console.showMessage("Importing fleet");
+            Console.showMessage("adding to fleet");
             byte[] decodedBytes = Base64.getDecoder().decode(args);
             String decodedFleet = new String(decodedBytes);
-            CampaignFleetAPI fleet = FleetHelper.spawnNewFleet(new JSONObject(decodedFleet));
-            Console.showMessage("Imported fleet amounting to " + fleet.getFleetPoints() + " fleet points");
-            Console.showMessage("Imported fleet composed of " + fleet.getFleetData().getNumMembers() + " ships");
+            FleetHelper.unSerializeFleet(new JSONObject(decodedFleet), Global.getSector().getPlayerFleet());
             return CommandResult.SUCCESS;
         }catch (Exception e){
             Global.getLogger(exportFleet.class).error("Error importing fleet", e);

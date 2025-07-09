@@ -12,7 +12,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class FleetHelper {
@@ -63,9 +62,9 @@ public class FleetHelper {
         // Unserialize abilities
         JSONArray abilities = serializedFleet.getJSONArray("abilities");
         unSerializeAbilities(abilities, fleet);
-        fleet.getCargo().clear();
+        //fleet.getCargo().clear();
         CargoHelper.addCargoFromSerialized(serializedFleet.getJSONArray("cargo"), fleet.getCargo());
-        clearFleetMembers(fleet);
+        //clearFleetMembers(fleet);
         JSONArray ships = serializedFleet.getJSONArray("ships");
         unSerializeFleetMember(ships, fleet);
     }
@@ -223,11 +222,12 @@ public class FleetHelper {
         }
     }
 
-    public static void spawnNewFleet(JSONObject message) throws JSONException {
+    public static CampaignFleetAPI spawnNewFleet(JSONObject message) throws JSONException {
         CampaignFleetAPI fleet = Global.getFactory().createEmptyFleet("neutral", "spawned fleet", false);
         FleetHelper.unSerializeFleet(message, fleet);
         fleet.setLocation(Global.getSector().getPlayerFleet().getLocation().getX(),Global.getSector().getPlayerFleet().getLocation().getY());
         Global.getSector().getPlayerFleet().getStarSystem().addEntity(fleet);
+        return fleet;
     }
 
 }

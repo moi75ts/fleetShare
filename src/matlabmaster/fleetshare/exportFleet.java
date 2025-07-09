@@ -19,6 +19,8 @@ public class exportFleet implements BaseCommand {
             String base64 = Base64.getEncoder().encodeToString(result.getBytes());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(new StringSelection(base64),null);
+            Console.showMessage("Exported fleet amounting to " + Global.getSector().getPlayerFleet().getFleetPoints() + " fleet points");
+            Console.showMessage("Exported fleet composed of " + Global.getSector().getPlayerFleet().getFleetData().getNumMembers() + " ships");
             Console.showMessage("Fleet code copied to clipboard");
             return CommandResult.SUCCESS;
         }catch (Exception e){
