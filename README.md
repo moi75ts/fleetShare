@@ -52,7 +52,7 @@ This menu is accessible via the intel tab of the starsector campaign in the impo
 
 ### FAQ
 - **Can this mod be added or removed mid-game?**  
-  Yes, it can be safely added or removed during a campaign.
+  No, it cannot be removed once added.
 - **What about mod compatibility?**  
   The mod is compatible with all mods, but you must have the same mods installed as the player who shared the fleet.
 
