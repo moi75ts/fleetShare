@@ -1,6 +1,7 @@
 package matlabmaster.fleetshare;
 
 import com.fs.starfarer.api.Global;
+import matlabmaster.fleetshare.utils.CompressHelper;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.Console;
 
@@ -16,9 +17,9 @@ public class exportFleet implements BaseCommand {
             String message = "Exporting player's fleet";
             Global.getLogger(exportFleet.class).info(message);
             String result = String.valueOf(matlabmaster.fleetshare.utils.FleetHelper.serializeFleet(Global.getSector().getPlayerFleet()));
-            String base64 = Base64.getEncoder().encodeToString(result.getBytes());
+            result = CompressHelper.compress(result);
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(new StringSelection(base64),null);
+            clipboard.setContents(new StringSelection(result),null);
             Console.showMessage("Exported fleet amounting to " + Global.getSector().getPlayerFleet().getFleetPoints() + " fleet points");
             Console.showMessage("Exported fleet composed of " + Global.getSector().getPlayerFleet().getFleetData().getNumMembers() + " ships");
             Console.showMessage("Fleet code copied to clipboard");

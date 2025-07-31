@@ -1,6 +1,7 @@
 package matlabmaster.fleetshare;
 
 import com.fs.starfarer.api.Global;
+import matlabmaster.fleetshare.utils.CompressHelper;
 import matlabmaster.fleetshare.utils.FleetHelper;
 import org.json.JSONObject;
 import org.lazywizard.console.BaseCommand;
@@ -13,9 +14,7 @@ public class addToMyFleet implements BaseCommand {
     public CommandResult runCommand(String args, CommandContext context){
         try {
             Console.showMessage("adding to fleet");
-            byte[] decodedBytes = Base64.getDecoder().decode(args);
-            String decodedFleet = new String(decodedBytes);
-            FleetHelper.unSerializeFleet(new JSONObject(decodedFleet), Global.getSector().getPlayerFleet());
+            FleetHelper.unSerializeFleet(new JSONObject(CompressHelper.decompress(args)), Global.getSector().getPlayerFleet());
             return CommandResult.SUCCESS;
         }catch (Exception e){
             Global.getLogger(exportFleet.class).error("Error importing fleet", e);

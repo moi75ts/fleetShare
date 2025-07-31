@@ -5,8 +5,11 @@ import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.FleetDataAPI;
 import com.fs.starfarer.api.characters.AbilityPlugin;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
+import com.fs.starfarer.api.combat.WeaponGroupAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
+import com.fs.starfarer.api.loading.WeaponGroupSpec;
+import com.fs.starfarer.api.loading.WeaponGroupType;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -156,7 +159,22 @@ public class FleetHelper {
                 fittedGunsArray.put(gunSlotObject);
             }
             shipSerialized.put("fittedGuns", fittedGunsArray);
-            shipSerialized.put("captain",PersonsHelper.serializePerson(ship.getCaptain()));
+
+            JSONArray weaponGroupsArray = new JSONArray();
+            for (WeaponGroupSpec weaponGroup : shipVariant.getWeaponGroups()) {
+                JSONObject weaponGroupObject = new JSONObject();
+                weaponGroupObject.put("type", weaponGroup.getType());
+                weaponGroupObject.put("autofire", weaponGroup.isAutofireOnByDefault());
+                JSONArray slots = new JSONArray();
+                for (String slotId : weaponGroup.getSlots()) {
+                    slots.put(slotId);
+                }
+                weaponGroupObject.put("slots", slots);
+                weaponGroupsArray.put(weaponGroupObject);
+            }
+            shipSerialized.put("weaponGroups", weaponGroupsArray);
+
+            shipSerialized.put("captain", PersonsHelper.serializePerson(ship.getCaptain()));
 
             serializedFleet.put(shipSerialized);
         }
@@ -176,6 +194,7 @@ public class FleetHelper {
         ship.getVariant().setNumFluxVents(shipObject.getInt("fluxVents"));
         ship.getVariant().setNumFluxCapacitors(shipObject.getInt("fluxCapacitors"));
         ship.setFlagship(shipObject.getBoolean("isFlagShip"));
+        ship.getVariant().setMayAutoAssignWeapons(false);
 
         JSONArray hullMods = shipObject.getJSONArray("hullMods");
         for (i = 0; i < hullMods.length(); i++) {
@@ -196,6 +215,18 @@ public class FleetHelper {
         for (i = 0; i < fittedGuns.length(); i++) {
             JSONObject fittedGun = fittedGuns.getJSONObject(i);
             ship.getVariant().addWeapon(fittedGun.getString("slotId"), fittedGun.getString("gunId"));
+        }
+
+        JSONArray weaponGroups = shipObject.getJSONArray("weaponGroups");
+        for (i = 0; i < weaponGroups.length(); i++) {
+            JSONObject weaponGroupObject = weaponGroups.getJSONObject(i);
+            WeaponGroupSpec weaponGroup = new WeaponGroupSpec();
+            weaponGroup.setType(WeaponGroupType.valueOf(weaponGroupObject.getString("type")));
+            weaponGroup.setAutofireOnByDefault(weaponGroupObject.getBoolean("autofire"));
+            for (int j = 0; j < weaponGroupObject.getJSONArray("slots").length(); j++) {
+                weaponGroup.addSlot(weaponGroupObject.getJSONArray("slots").getString(j));
+            }
+            ship.getVariant().addWeaponGroup(weaponGroup);
         }
         ship.setCaptain(PersonsHelper.unSerializePerson(shipObject.getJSONObject("captain")));
         return ship;
@@ -225,7 +256,7 @@ public class FleetHelper {
     public static CampaignFleetAPI spawnNewFleet(JSONObject message) throws JSONException {
         CampaignFleetAPI fleet = Global.getFactory().createEmptyFleet("neutral", "spawned fleet", false);
         FleetHelper.unSerializeFleet(message, fleet);
-        fleet.setLocation(Global.getSector().getPlayerFleet().getLocation().getX(),Global.getSector().getPlayerFleet().getLocation().getY());
+        fleet.setLocation(Global.getSector().getPlayerFleet().getLocation().getX(), Global.getSector().getPlayerFleet().getLocation().getY());
         Global.getSector().getPlayerFleet().getStarSystem().addEntity(fleet);
         return fleet;
     }
