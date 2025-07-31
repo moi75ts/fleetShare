@@ -24,6 +24,7 @@ To use this mod, you need:
 ## Using the UI
 This menu is accessible via the intel tab of the starsector campaign in the important category
 ![User interface](Assets/ui.png)
+Use the export button to get a string representing your fleet to share with others, or import someone else fleet from your clipboard!
 
 ## Using console commands
 ### Sharing Your Fleet
