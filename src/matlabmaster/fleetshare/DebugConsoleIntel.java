@@ -214,12 +214,12 @@ public class DebugConsoleIntel extends BaseIntelPlugin {
                 Global.getLogger(this.getClass()).info("Import fleet button pressed with data: " + mainText.substring(0, Math.min(50, mainText.length())) + "...");
                 try {
                     CampaignFleetAPI fleet = FleetHelper.spawnNewFleet(new JSONObject(CompressHelper.decompress(mainText)));
+                    mainText = "Import successful! Processed data from clipboard area."; // Modify mainText
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    mainText = "An error occurred, the string you provided is either invalid or contains modded content which are not installed here";
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    mainText = "An error occurred, did you copy the full string and made sure there are no extra spaces / characters?";
                 }
-                mainText = "Import successful! Processed data from clipboard area."; // Modify mainText
             } else {
                 Global.getSector().getCampaignUI().addMessage(
                         "No fleet data to import. Please paste/export data first.",
@@ -236,12 +236,12 @@ public class DebugConsoleIntel extends BaseIntelPlugin {
                 Global.getLogger(this.getClass()).info("Add to fleet button pressed with data: " + mainText.substring(0, Math.min(50, mainText.length())) + "...");
                 try {
                     FleetHelper.unSerializeFleet(new JSONObject(CompressHelper.decompress(mainText)), Global.getSector().getPlayerFleet());
+                    mainText = "Fleet data added to your current fleet!";
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    mainText = "An error occurred, the string you provided is either invalid or contains modded content which are not installed here";
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    mainText = "An error occurred, did you copy the full string and made sure there are no extra spaces / characters?";
                 }
-                mainText = "Fleet data added to your current fleet!"; // Modify mainText
             } else {
                 Global.getSector().getCampaignUI().addMessage(
                         "No fleet data to add. Please paste/export data first.",
