@@ -21,6 +21,11 @@ To use this mod, you need:
 
 ## How to Use
 
+## Using the UI
+This menu is accessible via the intel tab of the starsector campaign in the important category
+![User interface](Assets/ui.png)
+
+## Using console commands
 ### Sharing Your Fleet
 1. In-game, open the console with <kbd>Ctrl</kbd> + <kbd>Backspace</kbd>.
 2. Type the `exportfleet` command.
@@ -34,6 +39,16 @@ To use this mod, you need:
 3. The fleet will spawn in your game.
 
 ![Fleet Importing](Assets/import.gif)
+
+### Adding to your Fleet
+1. In-game, open the console with <kbd>Ctrl</kbd> + <kbd>Backspace</kbd>.
+2. Enter the command `addtomyfleet SharedStringHere`, replacing `SharedStringHere` with the shared string.
+3. The fleet will be added to yours.
+
+### Replacing your fleet
+1. In-game, open the console with <kbd>Ctrl</kbd> + <kbd>Backspace</kbd>.
+2. Enter the command `replacemyfleet SharedStringHere`, replacing `SharedStringHere` with the shared string.
+3. Your fleet will be replaced with the one from the string.
 
 ### FAQ
 - **Can this mod be added or removed mid-game?**  
