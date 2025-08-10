@@ -1,4 +1,4 @@
-package matlabmaster.fleetshare;
+package matlabmaster.fleetshare.commands;
 
 import com.fs.starfarer.api.Global;
 import matlabmaster.fleetshare.utils.CompressHelper;
@@ -8,7 +8,6 @@ import org.lazywizard.console.Console;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-import java.util.Base64;
 
 public class exportFleet implements BaseCommand {
     @Override

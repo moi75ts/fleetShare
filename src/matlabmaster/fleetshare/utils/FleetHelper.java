@@ -194,7 +194,8 @@ public class FleetHelper {
         ship.getVariant().setNumFluxVents(shipObject.getInt("fluxVents"));
         ship.getVariant().setNumFluxCapacitors(shipObject.getInt("fluxCapacitors"));
         ship.setFlagship(shipObject.getBoolean("isFlagShip"));
-        ship.getVariant().setMayAutoAssignWeapons(false);
+
+        ship.getVariant().setMayAutoAssignWeapons(false);//If not weapon groups sync will not work,
 
         JSONArray hullMods = shipObject.getJSONArray("hullMods");
         for (i = 0; i < hullMods.length(); i++) {

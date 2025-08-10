@@ -1,4 +1,4 @@
-package matlabmaster.fleetshare;
+package matlabmaster.fleetshare.commands;
 
 import com.fs.starfarer.api.Global;
 import matlabmaster.fleetshare.utils.CompressHelper;
@@ -6,8 +6,6 @@ import matlabmaster.fleetshare.utils.FleetHelper;
 import org.json.JSONObject;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.Console;
-
-import java.util.Base64;
 
 public class addToMyFleet implements BaseCommand {
     @Override

@@ -4,7 +4,6 @@ import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.lazywizard.console.Console;
 
 import java.io.IOException;
 import java.util.List;
@@ -37,6 +36,8 @@ public class fleetshareModPlugin extends BaseModPlugin {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
     }
 }
 

@@ -16,7 +16,6 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.DataFlavor;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Set;
 
 public class DebugConsoleIntel extends BaseIntelPlugin {
@@ -238,6 +237,7 @@ public class DebugConsoleIntel extends BaseIntelPlugin {
                     FleetHelper.unSerializeFleet(new JSONObject(CompressHelper.decompress(mainText)), Global.getSector().getPlayerFleet());
                     mainText = "Fleet data added to your current fleet!";
                 } catch (JSONException e) {
+
                     mainText = "An error occurred, the string you provided is either invalid or contains modded content which are not installed here";
                 } catch (IOException e) {
                     mainText = "An error occurred, did you copy the full string and made sure there are no extra spaces / characters?";
