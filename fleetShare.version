@@ -1,10 +1,12 @@
 {
-    "masterVersionFile": "https://raw.githubusercontent.com/LazyWizard/console-commands/master/src/main/mod/console.version",
+    "masterVersionFile": "https://raw.githubusercontent.com/moi75ts/fleetShare/refs/heads/master/fleetShare.version",
     "modName": "Fleet share",
     "modThreadId": 4106,
     "modVersion": {
         "major": 0,
         "minor": 5,
-        "patch": 2
-    }
+        "patch": 4
+    },
+    "starsectorVersion":"0.98a-RC8",
+    "directDownloadURL":"https://github.com/moi75ts/fleetShare/releases/download/0.5.4/fleetShare.zip",
 }

@@ -2,6 +2,7 @@ package matlabmaster.fleetshare;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.*;
@@ -16,6 +17,7 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.DataFlavor;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 public class DebugConsoleIntel extends BaseIntelPlugin {
@@ -142,6 +144,15 @@ public class DebugConsoleIntel extends BaseIntelPlugin {
         tooltip.addCustom(actionButtonRowPanel, pad); // Centered alignment added
         // --- End of Horizontal Action Button Row ---
 
+        tooltip.addSectionHeading("Export individual ships",Alignment.MID,opad);
+
+        List<FleetMemberAPI> shipsList = Global.getSector().getPlayerFleet().getFleetData().getMembersListCopy();
+        for(int i = 0 ; i < shipsList.size(); i++){
+            tooltip.addSectionHeading(shipsList.get(i).getShipName(),Alignment.MID, opad);
+            tooltip.addShipList(1,1,200,Color.RED,shipsList.subList(i,i+1),5f);
+            tooltip.addButton("Export",shipsList.get(i),200,buttonHeight,4f);
+        }
+
         panel.addUIElement(tooltip).inTL(0, 0);
     }
 
@@ -191,6 +202,23 @@ public class DebugConsoleIntel extends BaseIntelPlugin {
     @Override
     public void buttonPressConfirmed(Object buttonId, IntelUIAPI ui) {
         // All actions now read from and modify mainText
+
+        if(buttonId instanceof FleetMemberAPI){
+            //this is an individual ship export
+            //the easiest way to do it is creating an empty fleet, adding the ship then exporting the fleet
+            CampaignFleetAPI exportShipFleet = Global.getFactory().createEmptyFleet(Factions.NEUTRAL,"Exported ship",true);
+            exportShipFleet.getFleetData().addFleetMember((FleetMemberAPI) buttonId);
+            String result = null;
+            try{
+                result = String.valueOf(matlabmaster.fleetshare.utils.FleetHelper.serializeFleet(exportShipFleet));
+                mainText = CompressHelper.compress(result);
+            } catch (JSONException | IOException e){
+                mainText = "Well that's weird, it error out, I didn't know you could trigger this one.";
+            }
+            ui.updateUIForItem(this);
+        }
+
+
         if (BUTTON_1.equals(buttonId)) {
             Global.getLogger(this.getClass()).info("Export fleet button pressed");
             String result = null;
