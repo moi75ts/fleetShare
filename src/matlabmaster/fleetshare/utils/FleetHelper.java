@@ -258,7 +258,11 @@ public class FleetHelper {
         CampaignFleetAPI fleet = Global.getFactory().createEmptyFleet("neutral", "spawned fleet", false);
         FleetHelper.unSerializeFleet(message, fleet);
         fleet.setLocation(Global.getSector().getPlayerFleet().getLocation().getX(), Global.getSector().getPlayerFleet().getLocation().getY());
-        Global.getSector().getPlayerFleet().getStarSystem().addEntity(fleet);
+        if(Objects.equals(Global.getSector().getPlayerFleet().getContainingLocation().getId(), "hyperspace")){
+            Global.getSector().getHyperspace().addEntity(fleet);
+        }else{
+            Global.getSector().getPlayerFleet().getStarSystem().addEntity(fleet);
+        }
         return fleet;
     }
 
