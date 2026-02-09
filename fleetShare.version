@@ -5,7 +5,7 @@
     "modVersion": {
         "major": 0,
         "minor": 5,
-        "patch": 4
+        "patch": 6
     },
     "starsectorVersion":"0.98a-RC8",
     "directDownloadURL":"https://github.com/moi75ts/fleetShare/releases/download/0.5.4/fleetShare.zip",
