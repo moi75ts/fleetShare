@@ -55,7 +55,7 @@ Use the export button to get a string representing your fleet to share with othe
 - **Can this mod be added or removed mid-game?**  
   No, it cannot be removed once added.
 - **What about mod compatibility?**  
-  The mod is compatible with all mods, but you must have the same mods installed as the player who shared the fleet.
+  The mod should be compatible with all mods that adds new ships / weapons, however it has not been tested with the second in command mod, so expect issues.
 
 <details>
 <summary>My fleet (vanilla)</summary>
