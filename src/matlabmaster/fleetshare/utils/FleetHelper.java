@@ -109,13 +109,8 @@ public class FleetHelper {
 
     public static JSONArray serializeFleetShips(FleetDataAPI fleet) throws JSONException {
         JSONArray serializedFleet = new JSONArray();
-        for (FleetMemberAPI ship : fleet.getMembersListWithFightersCopy()) {
+        for (FleetMemberAPI ship : fleet.getMembersListCopy()) {
             JSONObject shipSerialized = new JSONObject();
-            //todo ask on forums for fix for starting spec id
-            //the regex is a hack to have it work
-            //todo also the regex breaks some more complicated variants, D A variants transforming it into a D variant
-            //I had a beautiful code using getSpecId, until for some reason i realised that the starting ships have a weird specId, and if i use baseHull, i kill all the variants
-            //weird spec id instead of apogee_Hull, the spec id for the starting apogee is 9f38
             String hullId = ship.getHullSpec().getHullId();
             // Remove variant suffix if present (like "_default_D")
             if (hullId.contains("_default_")) {
@@ -193,7 +188,7 @@ public class FleetHelper {
         ship.getRepairTracker().setMothballed(shipObject.getBoolean("isMothballed"));
         ship.getVariant().setNumFluxVents(shipObject.getInt("fluxVents"));
         ship.getVariant().setNumFluxCapacitors(shipObject.getInt("fluxCapacitors"));
-        ship.setFlagship(shipObject.getBoolean("isFlagShip"));
+
 
         ship.getVariant().setMayAutoAssignWeapons(false);//If not weapon groups sync will not work,
 
@@ -245,6 +240,10 @@ public class FleetHelper {
             JSONObject shipObject = ships.getJSONObject(i);
             FleetMemberAPI member = unSerializeFleetMember(shipObject);
             fleet.getFleetData().addFleetMember(member);
+            if(shipObject.getBoolean("isFlagShip")){
+                fleet.setCommander(member.getCaptain());
+                fleet.getFleetData().setFlagship(member);
+            }
         }
     }
 
